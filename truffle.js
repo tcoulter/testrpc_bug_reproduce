@@ -11,7 +11,6 @@ module.exports = {
   },
   deploy: [
     "RootContract",
-    "Subcontract"
   ],
   rpc: {
     host: "localhost",

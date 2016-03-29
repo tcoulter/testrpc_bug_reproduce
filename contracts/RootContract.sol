@@ -1,27 +1,23 @@
 import "Subcontract.sol";
 contract RootContract {
+   event LogInteger(uint256 integer);
+   event LogAddress(address addr);
 
-   mapping (uint => Subcontract) private subcontracts;
-   uint subcontractNum;
-
-   address public owner;
+   mapping (uint => address) public subcontracts;
+   uint public subcontractNum;
 
    function RootContract() {
-        owner = msg.sender;
+     subcontractNum = 0;
    }
 
    function createSubcontract()
    {
-     subcontracts[subcontractNum] = new Subcontract();
-     subcontractNum ++;
-   }
+     address addr = address(new Subcontract());
 
-   function getSubcontract(uint id) constant returns (address)
-   {
-     return subcontracts[id];
-   }
+     subcontracts[subcontractNum] = addr;
+     subcontractNum++;
 
-   function () {
-      throw;
+     LogAddress(addr);
+     LogInteger(subcontractNum);
    }
 }
